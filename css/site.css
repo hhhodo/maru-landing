@@ -1,11 +1,11 @@
 :root{
-  /* fresh pasture green (cooler, more saturated — less yellow) + a single amber-orange accent */
-  --color-primary-050:#eefaeb; --color-primary-100:#ccf8c5; --color-primary-200:#a1e699;
-  --color-primary-300:#3ed12d; --color-primary-400:#22b018; --color-primary-500:#1ca814;
-  --color-primary-600:#11980c; --color-primary-700:#098307; --color-primary-800:#0c5c0a;
-  --color-primary-900:#00490c; --color-canvas:#f5fcf3; --color-placeholder:#d0f2cb;
-  --text-subtle:#175f30; --text-subtle-inverse:#c3eac0;
-  --color-accent:#f0931a;
+  /* brand green #388E3C (=600) + amber #FFC107 accent */
+  --color-primary-050:#eaf6ea; --color-primary-100:#c8e6c9; --color-primary-200:#a5d6a7;
+  --color-primary-300:#81c784; --color-primary-400:#66bb6a; --color-primary-500:#4caf50;
+  --color-primary-600:#388e3c; --color-primary-700:#2e7d32; --color-primary-800:#1b5e20;
+  --color-primary-900:#123f16; --color-canvas:#f4faf4; --color-placeholder:#c8e6c9;
+  --text-subtle:#3d5a40; --text-subtle-inverse:#c8e6c9;
+  --color-accent:#ffc107;
 }
 /* =========================================================
    MARU ranch landing — site-specific composition layer.
@@ -33,7 +33,7 @@ img.img{object-fit:cover;}
 
 /* ---------- header ---------- */
 .site-header{position:fixed;inset-block-start:0;inset-inline:0;z-index:50;
-  padding:20px;background:rgba(245,252,243,.86);backdrop-filter:blur(8px);
+  padding:20px;background:rgba(244,250,244,.86);backdrop-filter:blur(8px);
   border-bottom:var(--border-1);}
 .site-header .frame{display:flex;align-items:center;justify-content:space-between;gap:var(--space-6);}
 .logo{font-weight:var(--fw-strong);font-size:var(--fs-body-2);display:flex;align-items:baseline;gap:6px;}
@@ -42,7 +42,7 @@ img.img{object-fit:cover;}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
   font-weight:var(--fw-strong);font-size:14px;padding:10px 20px;
   border-radius:var(--radius-circle);transition:opacity .2s ease;}
-.btn--solid{background:var(--color-accent);color:#fff;border:2px solid var(--color-accent);}
+.btn--solid{background:var(--color-accent);color:var(--color-primary-900);border:2px solid var(--color-accent);}
 .btn--solid:hover,.btn--solid:focus-visible{opacity:.8;}
 .btn--outline{background:transparent;color:inherit;border:1px solid currentColor;}
 .btn--outline:hover,.btn--outline:focus-visible{opacity:.6;}
@@ -114,7 +114,7 @@ html{scroll-behavior:smooth;}
   background:linear-gradient(to bottom, rgba(0,0,0,.45), rgba(0,0,0,.25) 40%, rgba(0,0,0,.5));}
 .hero .frame{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;}
 .hero-copy{max-width:780px;}
-.hero-kicker{font-size:var(--fs-body-2);color:#ffc46b;margin-block-end:var(--space-5);}
+.hero-kicker{font-size:var(--fs-body-2);color:#ffd54f;margin-block-end:var(--space-5);}
 .hero-title{font-size:var(--fs-h1);font-weight:var(--fw-strong);line-height:var(--lh-h1);color:var(--text-default-inverse);}
 .hero-brand{margin-block-start:var(--space-6);font-size:var(--fs-body-2);color:var(--text-subtle-inverse);}
 @media (max-width:768px){
@@ -249,4 +249,4 @@ html{scroll-behavior:smooth;}
 .cta-mark.pat circle:not(.pat-end){fill:var(--color-primary-700);opacity:0;}
 .is-visible.cta-mark.pat circle:not(.pat-end){opacity:1;}
 .cta-mark.pat circle.on{--node-from:var(--color-primary-700);--node-to:var(--color-primary-300);}
-.agenda-cell:hover .pat-end{fill:#ffc46b;}
+.agenda-cell:hover .pat-end{fill:#ffd54f;}
