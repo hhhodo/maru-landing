@@ -1,3 +1,11 @@
+:root{
+  /* calm khaki scale + a single orange accent (overrides the kit's neutral greys) */
+  --color-primary-050:#f6f5ee; --color-primary-100:#e7e5d5; --color-primary-200:#cfcbb3;
+  --color-primary-300:#b0ab8c; --color-primary-400:#9a9573; --color-primary-500:#868160;
+  --color-primary-600:#66634a; --color-primary-700:#504e3a; --color-primary-800:#3d3c2d;
+  --color-primary-900:#2b2a20; --color-canvas:#fbfaf5; --color-placeholder:#e7e5d5;
+  --color-accent:#e2691f;
+}
 /* =========================================================
    MARU ranch landing — site-specific composition layer.
    Built on top of css/styles.css tokens. No arbitrary colors.
@@ -24,7 +32,7 @@ img.img{object-fit:cover;}
 
 /* ---------- header ---------- */
 .site-header{position:fixed;inset-block-start:0;inset-inline:0;z-index:50;
-  padding:20px;background:rgba(255,255,255,.86);backdrop-filter:blur(8px);
+  padding:20px;background:rgba(251,250,245,.86);backdrop-filter:blur(8px);
   border-bottom:var(--border-1);}
 .site-header .frame{display:flex;align-items:center;justify-content:space-between;gap:var(--space-6);}
 .logo{font-weight:var(--fw-strong);font-size:var(--fs-body-2);display:flex;align-items:baseline;gap:6px;}
@@ -33,7 +41,7 @@ img.img{object-fit:cover;}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
   font-weight:var(--fw-strong);font-size:14px;padding:10px 20px;
   border-radius:var(--radius-circle);transition:opacity .2s ease;}
-.btn--solid{background:var(--color-primary-900);color:var(--text-default-inverse);border:var(--border-2);}
+.btn--solid{background:var(--color-accent);color:#fff;border:2px solid var(--color-accent);}
 .btn--solid:hover,.btn--solid:focus-visible{opacity:.8;}
 .btn--outline{background:transparent;color:inherit;border:1px solid currentColor;}
 .btn--outline:hover,.btn--outline:focus-visible{opacity:.6;}
@@ -50,7 +58,7 @@ html{scroll-behavior:smooth;}
 .timeline-media .img,.news-card .img{transform:scale(1.25);transition:transform 1s .05s cubic-bezier(.16,.84,.44,1);}
 .is-visible .timeline-media .img,.is-visible.news-card .img{transform:scale(1);}
 .pat circle:not(.pat-end){opacity:0;transition:opacity .3s ease;}
-.is-visible .pat circle:not(.pat-end){opacity:.45;transition-delay:.05s;}
+.is-visible.pat circle:not(.pat-end),.is-visible .pat circle:not(.pat-end){opacity:.45;transition-delay:.05s;}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto;}
   .reveal{opacity:1;transform:none;}
@@ -80,7 +88,7 @@ html{scroll-behavior:smooth;}
 /* ---------- motif (pattern-lock mark: 5x5 dot grid, a line traces a shape, end point pops in on arrival) ---------- */
 .motif{color:var(--color-primary-600);fill:currentColor;stroke:currentColor;overflow:visible;}
 .pat-line{fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;}
-.pat-end{stroke:none;opacity:0;transform-box:fill-box;transform-origin:center;}
+.pat-end{fill:var(--color-accent);stroke:none;opacity:0;transform-box:fill-box;transform-origin:center;}
 .is-visible .pat-line{animation-name:pat-draw;animation-timing-function:linear;animation-fill-mode:both;}
 .is-visible .pat-end{animation:pat-pop .25s cubic-bezier(.16,.84,.44,1) both;}
 @keyframes pat-draw{from{stroke-dashoffset:1;}to{stroke-dashoffset:0;}}
@@ -100,7 +108,7 @@ html{scroll-behavior:smooth;}
   background:linear-gradient(to bottom, rgba(0,0,0,.45), rgba(0,0,0,.25) 40%, rgba(0,0,0,.5));}
 .hero .frame{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;}
 .hero-copy{max-width:780px;}
-.hero-kicker{font-size:var(--fs-body-2);color:var(--text-subtle-inverse);margin-block-end:var(--space-5);}
+.hero-kicker{font-size:var(--fs-body-2);color:#f3a066;margin-block-end:var(--space-5);}
 .hero-title{font-size:var(--fs-h1);font-weight:var(--fw-strong);line-height:var(--lh-h1);color:var(--text-default-inverse);}
 .hero-brand{margin-block-start:var(--space-6);font-size:var(--fs-body-2);color:var(--text-subtle-inverse);}
 @media (max-width:768px){
@@ -136,17 +144,17 @@ html{scroll-behavior:smooth;}
 .timeline-line{position:absolute;inset-block-start:0;inset-block-end:0;inset-inline-start:50%;
   width:2px;background:var(--color-primary-100);transform:translateX(-1px);z-index:0;}
 .timeline-fill{position:absolute;inset-inline-start:0;inset-block-start:0;width:100%;height:0%;
-  background:var(--color-primary-900);transition:height .2s ease-out;}
+  background:var(--color-accent);transition:height .2s ease-out;}
 .timeline-dot{position:absolute;inset-inline-start:50%;inset-block-start:0;
   transform:translate(-50%,-50%);width:10px;height:10px;border-radius:var(--radius-circle);
-  background:var(--color-primary-900);transition:top .2s ease-out;}
+  background:var(--color-accent);transition:top .2s ease-out;}
 
 .timeline-row{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;
   gap:var(--space-10);align-items:center;}
 
 .timeline-item{display:flex;flex-direction:column;gap:var(--space-5);}
 .timeline-item-row{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-6);}
-.timeline-num{flex:none;font-size:24px;font-weight:var(--fw-strong);color:var(--color-primary-300);}
+.timeline-num{flex:none;font-size:24px;font-weight:var(--fw-strong);color:var(--color-accent);}
 .timeline-icon{width:72px;height:72px;flex:none;}
 
 .timeline-copy h3{font-size:24px;font-weight:var(--fw-strong);line-height:1.35;}
@@ -231,3 +239,7 @@ html{scroll-behavior:smooth;}
 .footer-bottom{display:flex;align-items:flex-end;justify-content:space-between;gap:var(--space-6);flex-wrap:wrap;}
 .footer-legal p{font-size:14px;}
 @media (max-width:768px){.footer-bottom{flex-direction:column;align-items:flex-start;}}
+
+.cta-mark.pat circle:not(.pat-end){opacity:.6;}
+.is-visible.cta-mark.pat circle:not(.pat-end){opacity:.6;}
+.agenda-cell:hover .pat-end{fill:#f3a066;}
