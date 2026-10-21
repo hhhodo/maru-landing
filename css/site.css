@@ -58,6 +58,7 @@ html{scroll-behavior:smooth;}
 .is-visible .timeline-media,.is-visible.news-card .img-wrap{clip-path:inset(0 0 0 0);}
 .timeline-media .img,.news-card .img{transform:scale(1.25);transition:transform 1s .05s cubic-bezier(.16,.84,.44,1);}
 .is-visible .timeline-media .img,.is-visible.news-card .img{transform:scale(1);}
+.pat circle{stroke:none;}
 .pat circle:not(.pat-end){fill:var(--color-primary-100);opacity:0;transition:opacity .3s ease;}
 .is-visible.pat circle:not(.pat-end),.is-visible .pat circle:not(.pat-end){opacity:1;transition-delay:.05s;}
 @media (prefers-reduced-motion:reduce){
@@ -88,7 +89,7 @@ html{scroll-behavior:smooth;}
 
 /* ---------- motif (pattern-lock mark: 5x5 dot grid, a line traces a shape, end point pops in on arrival) ---------- */
 .motif{color:var(--color-primary-600);fill:currentColor;stroke:currentColor;overflow:visible;}
-.pat-line{fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;}
+.pat-line{fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;}
 .pat-end{fill:var(--color-accent);stroke:none;opacity:0;transform-box:fill-box;transform-origin:center;}
 .is-visible .pat-line{animation-name:pat-draw;animation-timing-function:linear;animation-fill-mode:both;}
 .is-visible .pat-end{animation:pat-pop .25s cubic-bezier(.16,.84,.44,1) both;}
