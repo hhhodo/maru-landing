@@ -66,10 +66,16 @@ html{scroll-behavior:smooth;}
 .agenda-grid .reveal:nth-child(4n+3){transition-delay:.12s;}
 .agenda-grid .reveal:nth-child(4n+4){transition-delay:.18s;}
 
-/* ---------- motif (generic dot-grid mark, not a copied icon) ---------- */
-.motif{--motif-size:6px;--motif-gap:10px;background-image:radial-gradient(currentColor calc(var(--motif-size)/2), transparent calc(var(--motif-size)/2));
-  background-size:var(--motif-gap) var(--motif-gap);color:var(--color-primary-300);}
-.motif--inverse{color:var(--color-primary-600);}
+/* ---------- motif (pattern-lock mark: tiny 3x3 dots joined by a single line) ---------- */
+.motif{color:var(--color-primary-600);fill:currentColor;stroke:currentColor;overflow:visible;}
+.pat-line{fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:0;}
+.pat-start{fill:none;stroke-width:.8;}
+.motif circle:not(.pat-start){opacity:.45;}
+.pat-line{animation:pat-draw 1.2s cubic-bezier(.16,.84,.44,1) both;}
+.agenda-cell:hover .pat-line,.agenda-cell:focus-visible .pat-line{animation:pat-draw .9s cubic-bezier(.16,.84,.44,1) both;}
+@keyframes pat-draw{from{stroke-dashoffset:1;}to{stroke-dashoffset:0;}}
+@media (prefers-reduced-motion:reduce){.pat-line{animation:none!important;}}
+.motif--inverse{color:var(--color-primary-300);}
 
 /* ---------- hero ---------- */
 .hero{position:relative;width:100%;height:100vh;height:100dvh;min-height:720px;overflow:hidden;background:var(--color-placeholder);}
@@ -131,12 +137,7 @@ html{scroll-behavior:smooth;}
 .timeline-item-row{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-6);}
 .timeline-num{flex:none;font-size:24px;font-weight:var(--fw-strong);color:var(--color-primary-300);}
 .timeline-icon{width:72px;height:72px;flex:none;}
-/* each item gets its own dot-grid silhouette — same motif texture, different mark */
-.timeline-icon--01{border-radius:50%;}
-.timeline-icon--02{--motif-size:5px;--motif-gap:8px;
-  clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%);}
-.timeline-icon--03{--motif-size:7px;--motif-gap:12px;
-  clip-path:polygon(38% 0%,62% 0%,62% 38%,100% 38%,100% 62%,62% 62%,62% 100%,38% 100%,38% 62%,0% 62%,0% 38%,38% 38%);}
+
 .timeline-copy h3{font-size:24px;font-weight:var(--fw-strong);line-height:1.35;}
 .timeline-copy p{margin-block-start:var(--space-3);font-size:var(--fs-body-2);color:var(--text-subtle);}
 
@@ -191,19 +192,6 @@ html{scroll-behavior:smooth;}
   .agenda-cell span{font-size:16px;}
 }
 
-/* each agenda icon gets its own dot-grid silhouette, matched to its topic —
-   same motif texture as the philosophy timeline, distinct mark per item */
-.agenda-icon--leaf{border-radius:0% 50% 50% 50%;transform:rotate(45deg);}
-.agenda-icon--ring{border-radius:50%;
-  -webkit-mask-image:radial-gradient(circle at 50% 50%,transparent 40%,#000 42%,#000 100%);
-  mask-image:radial-gradient(circle at 50% 50%,transparent 40%,#000 42%,#000 100%);}
-.agenda-icon--diamond{clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%);}
-.agenda-icon--chevron{clip-path:polygon(0% 0%,55% 0%,100% 50%,55% 100%,0% 100%,45% 50%);}
-.agenda-icon--hexagon{clip-path:polygon(25% 0%,75% 0%,100% 50%,75% 100%,25% 100%,0% 50%);}
-.agenda-icon--triangle{clip-path:polygon(50% 0%,100% 100%,0% 100%);}
-.agenda-icon--cross{clip-path:polygon(38% 0%,62% 0%,62% 38%,100% 38%,100% 62%,62% 62%,62% 100%,38% 100%,38% 62%,0% 62%,0% 38%,38% 38%);}
-.agenda-icon--shield{clip-path:polygon(50% 0%,100% 15%,100% 55%,50% 100%,0% 55%,0% 15%);}
-
 /* ---------- news ---------- */
 .news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--grid-gutter-lg);}
 .news-card{border:var(--border-1);}
@@ -220,7 +208,7 @@ html{scroll-behavior:smooth;}
 .cta-banner .frame{display:flex;align-items:center;justify-content:space-between;gap:var(--space-7);padding-block:var(--space-section);}
 .cta-banner h2{font-size:var(--fs-h2);}
 .cta-banner p{margin-block-start:var(--space-4);color:var(--text-subtle-inverse);}
-.cta-mark{width:120px;height:120px;flex:none;border-radius:var(--radius-circle);}
+.cta-mark{width:120px;height:120px;flex:none;}
 @media (max-width:768px){.cta-banner .frame{flex-direction:column;text-align:center;}}
 
 /* ---------- footer (legal line only — nav columns removed) ---------- */
