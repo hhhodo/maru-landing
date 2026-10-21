@@ -1,9 +1,9 @@
 :root{
   /* fresh pasture green (cooler, more saturated — less yellow) + a single amber-orange accent */
-  --color-primary-050:#eefaeb; --color-primary-100:#d0f2cb; --color-primary-200:#a0e498;
-  --color-primary-300:#6fd263; --color-primary-400:#49bd40; --color-primary-500:#31a42b;
-  --color-primary-600:#258f22; --color-primary-700:#1e741c; --color-primary-800:#175a16;
-  --color-primary-900:#10420f; --color-canvas:#f5fcf3; --color-placeholder:#d0f2cb;
+  --color-primary-050:#eefaeb; --color-primary-100:#ccf8c5; --color-primary-200:#9aed91;
+  --color-primary-300:#4ed93f; --color-primary-400:#28c31c; --color-primary-500:#23b21c;
+  --color-primary-600:#1a9c16; --color-primary-700:#0b7e09; --color-primary-800:#0e5f0d;
+  --color-primary-900:#1e4900; --color-canvas:#f5fcf3; --color-placeholder:#d0f2cb;
   --text-subtle:#3f6340; --text-subtle-inverse:#c3eac0;
   --color-accent:#f0931a;
 }
