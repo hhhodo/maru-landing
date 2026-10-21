@@ -62,10 +62,10 @@ html{scroll-behavior:smooth;}
 .pat circle:not(.pat-end){fill:var(--color-primary-100);opacity:0;transition:opacity .3s ease;}
 .is-visible.pat circle:not(.pat-end),.is-visible .pat circle:not(.pat-end){opacity:1;transition-delay:.05s;}
 /* every grid dot is there from the start; a dot the line passes over turns solid as the line reaches it (inline delay) */
-.pat circle.on{transition:opacity .3s ease .05s,fill .2s ease var(--d,0s);}
-.is-visible.pat circle.on,.is-visible .pat circle.on{fill:var(--color-primary-600);}
+.is-visible.pat circle.on,.is-visible .pat circle.on{animation:pat-node .2s ease both;animation-delay:var(--d,0s);}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto;}
+  .pat circle.on{animation:none!important;fill:var(--node-to,var(--color-primary-600));}
   .reveal{opacity:1;transform:none;}
   .timeline-media,.news-card .img-wrap{clip-path:none;}
   .timeline-media .img,.news-card .img{transform:none;}
@@ -97,6 +97,7 @@ html{scroll-behavior:smooth;}
 .is-visible .pat-line{animation-name:pat-draw;animation-timing-function:linear;animation-fill-mode:both;}
 .is-visible .pat-end{animation:pat-pop .25s cubic-bezier(.16,.84,.44,1) both;}
 @keyframes pat-draw{from{stroke-dashoffset:1;}to{stroke-dashoffset:0;}}
+@keyframes pat-node{from{fill:var(--node-from,var(--color-primary-100));}to{fill:var(--node-to,var(--color-primary-600));}}
 @keyframes pat-pop{from{opacity:0;transform:scale(0);}to{opacity:1;transform:scale(1);}}
 @media (prefers-reduced-motion:reduce){.pat-line{animation:none!important;stroke-dashoffset:0;}}
 .motif--inverse{color:var(--color-primary-300);}
@@ -247,5 +248,5 @@ html{scroll-behavior:smooth;}
 
 .cta-mark.pat circle:not(.pat-end){fill:var(--color-primary-700);opacity:0;}
 .is-visible.cta-mark.pat circle:not(.pat-end){opacity:1;}
-.is-visible.cta-mark.pat circle.on{fill:var(--color-primary-300);}
+.cta-mark.pat circle.on{--node-from:var(--color-primary-700);--node-to:var(--color-primary-300);}
 .agenda-cell:hover .pat-end{fill:#ffc46b;}
