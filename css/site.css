@@ -246,3 +246,6 @@ html{scroll-behavior:smooth;}
 .cta-mark.pat circle:not(.pat-end){fill:var(--color-primary-700);opacity:0;}
 .is-visible.cta-mark.pat circle:not(.pat-end){opacity:1;}
 .cta-mark.pat circle.on{--node-from:var(--color-primary-700);--node-to:var(--color-primary-300);}
+
+/* Korean line breaks at word boundaries */
+body{word-break:keep-all;overflow-wrap:break-word;}
