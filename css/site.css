@@ -1,10 +1,9 @@
 :root{
-  /* brand green #388E3C (=600) + amber #FFC107 accent */
-  --color-primary-050:#eaf6ea; --color-primary-100:#c8e6c9; --color-primary-200:#a5d6a7;
-  --color-primary-300:#81c784; --color-primary-400:#66bb6a; --color-primary-500:#4caf50;
-  --color-primary-600:#388e3c; --color-primary-700:#2e7d32; --color-primary-800:#1b5e20;
-  --color-primary-900:#123f16; --color-canvas:#f4faf4; --color-placeholder:#c8e6c9;
-  --text-subtle:#3d5a40; --text-subtle-inverse:#c8e6c9;
+  /* tonal scale derived from the brand green #388E3C (=600): tints mixed with white, shades with black */
+  --color-primary-050:#ebf4ec; --color-primary-100:#d7e8d8; --color-primary-200:#b3d4b5; --color-primary-300:#8cbd8e; --color-primary-400:#64a767;
+  --color-primary-500:#4c9950; --color-primary-600:#388e3c; --color-primary-700:#2f7732; --color-primary-800:#255e28; --color-primary-900:#193e1a;
+  --color-canvas:#f5f9f5; --color-placeholder:#d7e8d8;
+  --text-subtle:#1f4e21; --text-subtle-inverse:#d7e8d8;
   --color-accent:#ffc107;
 }
 /* =========================================================
@@ -33,7 +32,7 @@ img.img{object-fit:cover;}
 
 /* ---------- header ---------- */
 .site-header{position:fixed;inset-block-start:0;inset-inline:0;z-index:50;
-  padding:20px;background:rgba(244,250,244,.86);backdrop-filter:blur(8px);
+  padding:20px;background:rgba(245,249,245,.86);backdrop-filter:blur(8px);
   border-bottom:var(--border-1);}
 .site-header .frame{display:flex;align-items:center;justify-content:space-between;gap:var(--space-6);}
 .logo{font-weight:var(--fw-strong);font-size:var(--fs-body-2);display:flex;align-items:baseline;gap:6px;}
