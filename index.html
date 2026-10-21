@@ -178,7 +178,7 @@ Footer      — full-bleed — legal only
       </div>
       <div class="news-grid">
         <a href="#news" class="news-card reveal">
-          <img class="img img--16-9" src="assets/photos/hillside-barn.jpg" alt="언덕 아래 우사 주변에서 쉬고 있는 한우 무리">
+          <div class="img-wrap"><img class="img img--16-9" src="assets/photos/hillside-barn.jpg" alt="언덕 아래 우사 주변에서 쉬고 있는 한우 무리"></div>
           <div class="news-card-body">
             <div class="news-card-top"><span class="badge">News</span></div>
             <h3>'목장 체험 학교' 2026 가을 학기 참가 가족 모집</h3>
@@ -186,7 +186,7 @@ Footer      — full-bleed — legal only
           </div>
         </a>
         <a href="#news" class="news-card reveal">
-          <img class="img img--16-9" src="assets/photos/tagged-calves.jpg" alt="귀표를 단 어린 송아지들이 풀밭에 모여 있는 모습">
+          <div class="img-wrap"><img class="img img--16-9" src="assets/photos/tagged-calves.jpg" alt="귀표를 단 어린 송아지들이 풀밭에 모여 있는 모습"></div>
           <div class="news-card-body">
             <div class="news-card-top"><span class="badge">News</span></div>
             <h3>이웃 농가와 함께하는 직거래 협업 출범… 'MARU 농가장터' 시작</h3>
@@ -194,7 +194,7 @@ Footer      — full-bleed — legal only
           </div>
         </a>
         <a href="#news" class="news-card reveal">
-          <img class="img img--16-9" src="assets/photos/silage.jpg" alt="장갑 낀 손으로 건초와 사료를 고르는 모습">
+          <div class="img-wrap"><img class="img img--16-9" src="assets/photos/silage.jpg" alt="장갑 낀 손으로 건초와 사료를 고르는 모습"></div>
           <div class="news-card-body">
             <div class="news-card-top"><span class="badge">Story</span></div>
             <h3>[MARU 노트] 계절이 바뀔 때, 소가 잘 먹는 조사료 배합 다섯 가지</h3>
@@ -273,26 +273,25 @@ Footer      — full-bleed — legal only
 })();
 
 (function(){
-  var items = document.querySelectorAll(".reveal");
+  var items = Array.prototype.slice.call(document.querySelectorAll(".reveal"));
   if(!items.length) return;
-  if(!("IntersectionObserver" in window)){
-    items.forEach(function(el){ el.classList.add("is-visible"); });
-    return;
-  }
-  // Positive bottom margin so items are marked visible before they
-  // actually reach the viewport (was a negative margin, which delayed
-  // the trigger until well inside it — on a fast scroll/flick the
-  // element could pass through before the callback ever fired, leaving
-  // it stuck at opacity:0, e.g. the news card text below the fold).
-  var io = new IntersectionObserver(function(entries){
-    entries.forEach(function(entry){
-      if(entry.isIntersecting){
-        entry.target.classList.add("is-visible");
-        io.unobserve(entry.target);
-      }
+  var ticking = false;
+  function check(){
+    ticking = false;
+    var trigger = window.innerHeight * 0.88;
+    items = items.filter(function(el){
+      if(el.getBoundingClientRect().top < trigger){ el.classList.add("is-visible"); return false; }
+      return true;
     });
-  }, {threshold:0, rootMargin:"0px 0px 200px 0px"});
-  items.forEach(function(el){ io.observe(el); });
+    if(!items.length){
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    }
+  }
+  function onScroll(){ if(!ticking){ requestAnimationFrame(check); ticking = true; } }
+  window.addEventListener("scroll", onScroll, {passive:true});
+  window.addEventListener("resize", onScroll);
+  check();
 })();
 </script>
 </body>
