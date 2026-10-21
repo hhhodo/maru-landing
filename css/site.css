@@ -49,14 +49,15 @@ html{scroll-behavior:smooth;}
 .is-visible .timeline-media,.is-visible.news-card .img-wrap{clip-path:inset(0 0 0 0);}
 .timeline-media .img,.news-card .img{transform:scale(1.25);transition:transform 1.8s .15s cubic-bezier(.16,.84,.44,1);}
 .is-visible .timeline-media .img,.is-visible.news-card .img{transform:scale(1);}
-.pat circle:not(.pat-start){opacity:0;transition:opacity .5s ease;}
-.is-visible .pat circle:not(.pat-start){opacity:.45;transition-delay:.2s;}
+.pat circle:not(.pat-end){opacity:0;transition:opacity .5s ease;}
+.is-visible .pat circle:not(.pat-end){opacity:.45;transition-delay:.2s;}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto;}
   .reveal{opacity:1;transform:none;}
   .timeline-media,.news-card .img-wrap{clip-path:none;}
   .timeline-media .img,.news-card .img{transform:none;}
-  .pat circle:not(.pat-start){opacity:.45;}
+  .pat circle:not(.pat-end){opacity:.45;}
+  .pat-end{opacity:1;animation:none!important;}
 }
 
 /* stagger — each group's items fade in a beat apart rather than all at once */
@@ -76,13 +77,14 @@ html{scroll-behavior:smooth;}
 .agenda-grid .reveal:nth-child(4n+3){transition-delay:.12s;}
 .agenda-grid .reveal:nth-child(4n+4){transition-delay:.18s;}
 
-/* ---------- motif (pattern-lock mark: tiny 3x3 dots joined by a single line) ---------- */
+/* ---------- motif (pattern-lock mark: 5x5 dot grid, a line traces a shape, end point pops in on arrival) ---------- */
 .motif{color:var(--color-primary-600);fill:currentColor;stroke:currentColor;overflow:visible;}
-.pat-line{fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;}
-.pat-start{fill:none;stroke-width:.8;}
-.is-visible .pat-line{animation:pat-draw 2s .5s cubic-bezier(.16,.84,.44,1) both;}
-.agenda-cell:hover .pat-line,.agenda-cell:focus-visible .pat-line{animation:pat-draw .9s cubic-bezier(.16,.84,.44,1) both;}
+.pat-line{fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;}
+.pat-end{stroke:none;opacity:0;transform-box:fill-box;transform-origin:center;}
+.is-visible .pat-line{animation-name:pat-draw;animation-timing-function:linear;animation-fill-mode:both;}
+.is-visible .pat-end{animation:pat-pop .45s cubic-bezier(.16,.84,.44,1) both;}
 @keyframes pat-draw{from{stroke-dashoffset:1;}to{stroke-dashoffset:0;}}
+@keyframes pat-pop{from{opacity:0;transform:scale(0);}to{opacity:1;transform:scale(1);}}
 @media (prefers-reduced-motion:reduce){.pat-line{animation:none!important;stroke-dashoffset:0;}}
 .motif--inverse{color:var(--color-primary-300);}
 
