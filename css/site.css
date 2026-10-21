@@ -1,0 +1,233 @@
+/* =========================================================
+   MARU ranch landing — site-specific composition layer.
+   Built on top of css/styles.css tokens. No arbitrary colors.
+   Grid measurements below are taken 1:1 from the Figma reference
+   (1920 frame / 1440 container / 60px inset / 330px module) and
+   are intentionally kept exact rather than rounded to spacing tokens.
+   ========================================================= */
+
+/* ---------- figma-accurate frame ---------- */
+/* mirrors the Figma "Container:margin" — 1440 wide, 60px inset (not the
+   default 80px .container gutter) so inner grid modules land on 330px. */
+.frame{width:100%;max-width:1440px;margin-inline:auto;padding-inline:60px;}
+@media (max-width:768px){.frame{padding-inline:16px;}}
+
+/* ---------- photo fill (real <img> now sits where the placeholder div was) ---------- */
+/* No height:100% here: with width:100% (from .img in styles.css) already
+   set, a height:100% would make aspect-ratio (used by news/timeline
+   images) get ignored entirely, and since .news-card is a grid item
+   (default align-items:stretch), that 100% resolved against an unstable
+   stretched height - letting the image grow tall enough to cover the
+   title/date text under it. object-fit:cover + aspect-ratio alone is
+   enough; the hero image fills its box via position:absolute + inset:0. */
+img.img{object-fit:cover;}
+
+/* ---------- header ---------- */
+.site-header{position:fixed;inset-block-start:0;inset-inline:0;z-index:50;
+  padding:20px;background:rgba(255,255,255,.86);backdrop-filter:blur(8px);
+  border-bottom:var(--border-1);}
+.site-header .frame{display:flex;align-items:center;justify-content:space-between;gap:var(--space-6);}
+.logo{font-weight:var(--fw-strong);font-size:var(--fs-body-2);display:flex;align-items:baseline;gap:6px;}
+.logo em{font-style:normal;font-weight:var(--fw-base);color:var(--text-subtle);}
+/* ---------- buttons (shared design-system component — solid + outline) ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  font-weight:var(--fw-strong);font-size:14px;padding:10px 20px;
+  border-radius:var(--radius-circle);transition:opacity .2s ease;}
+.btn--solid{background:var(--color-primary-900);color:var(--text-default-inverse);border:var(--border-2);}
+.btn--solid:hover,.btn--solid:focus-visible{opacity:.8;}
+.btn--outline{background:transparent;color:inherit;border:1px solid currentColor;}
+.btn--outline:hover,.btn--outline:focus-visible{opacity:.6;}
+.header-cta{font-size:14px;}
+
+/* ---------- motion (smooth anchor scroll + reveal-on-scroll) ---------- */
+html{scroll-behavior:smooth;}
+.reveal{opacity:0;transform:translateY(28px);
+  transition:opacity .7s cubic-bezier(.16,.84,.44,1),transform .7s cubic-bezier(.16,.84,.44,1);}
+.reveal.is-visible{opacity:1;transform:translateY(0);}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  .reveal{opacity:1;transform:none;}
+}
+
+/* stagger — each group's items fade in a beat apart rather than all at once */
+.promo-strip .reveal:nth-child(2){transition-delay:.12s;}
+.promo-strip .reveal:nth-child(3){transition-delay:.24s;}
+
+/* nth-of-type counts .timeline-line as div #1, so rows are #2/#3/#4 */
+.timeline-row.reveal:nth-of-type(3){transition-delay:.12s;}
+.timeline-row.reveal:nth-of-type(4){transition-delay:.24s;}
+
+.news-grid .reveal:nth-child(2){transition-delay:.12s;}
+.news-grid .reveal:nth-child(3){transition-delay:.24s;}
+
+/* same per-column rhythm on every row (4n+1..4n+4) instead of one long
+   8-step cascade, so the bottom row echoes the top row's timing exactly */
+.agenda-grid .reveal:nth-child(4n+2){transition-delay:.06s;}
+.agenda-grid .reveal:nth-child(4n+3){transition-delay:.12s;}
+.agenda-grid .reveal:nth-child(4n+4){transition-delay:.18s;}
+
+/* ---------- motif (generic dot-grid mark, not a copied icon) ---------- */
+.motif{--motif-size:6px;--motif-gap:10px;background-image:radial-gradient(currentColor calc(var(--motif-size)/2), transparent calc(var(--motif-size)/2));
+  background-size:var(--motif-gap) var(--motif-gap);color:var(--color-primary-300);}
+.motif--inverse{color:var(--color-primary-600);}
+
+/* ---------- hero ---------- */
+.hero{position:relative;width:100%;height:100vh;height:100dvh;min-height:720px;overflow:hidden;background:var(--color-placeholder);}
+/* the global img.img rule intentionally has no height (so aspect-ratio
+   works for news/timeline images) - but that leaves an absolutely
+   positioned, inset:0 image computing its height from its own intrinsic
+   ratio against width:100% instead of stretching to fill. Scope the
+   fill back in just for the hero. */
+.hero img.img{height:100%;}
+.hero::after{content:"";position:absolute;inset:0;z-index:1;
+  background:linear-gradient(to bottom, rgba(0,0,0,.45), rgba(0,0,0,.25) 40%, rgba(0,0,0,.5));}
+.hero .frame{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;}
+.hero-copy{max-width:780px;}
+.hero-kicker{font-size:var(--fs-body-2);color:var(--text-subtle-inverse);margin-block-end:var(--space-5);}
+.hero-title{font-size:var(--fs-h1);font-weight:var(--fw-strong);line-height:var(--lh-h1);color:var(--text-default-inverse);}
+.hero-brand{margin-block-start:var(--space-6);font-size:var(--fs-body-2);color:var(--text-subtle-inverse);}
+@media (max-width:768px){
+
+.site-header{padding:12px;}
+  .hero-title{font-size:var(--fs-h2);}
+}
+
+/* ---------- promo strip (flush, 3 cards) ---------- */
+.promo-strip{display:grid;grid-template-columns:repeat(3,1fr);}
+.promo-card{padding:var(--space-6) var(--space-7);display:flex;flex-direction:column;
+  border-inline-end:var(--border-1);}
+.promo-card:last-child{border-inline-end:0;}
+.promo-card--a{background:var(--color-primary-050);}
+.promo-card--b{background:var(--color-canvas);}
+.promo-card--c{background:var(--color-primary-900);color:var(--text-default-inverse);}
+.promo-card h3{font-size:var(--fs-h3);}
+.promo-card--c h3{color:var(--text-default-inverse);}
+.promo-card p{margin-block-start:var(--space-3);color:var(--text-subtle);}
+.promo-card--c p{color:var(--text-subtle-inverse);}
+@media (max-width:1024px){.promo-strip{grid-template-columns:1fr;}
+  .promo-card{border-inline-end:0;border-block-end:var(--border-1);}}
+
+/* ---------- section heading (kicker + title, top-left aligned) ---------- */
+.section-head{display:flex;align-items:center;gap:var(--space-4);margin-block-end:var(--space-8);}
+.section-head .motif{width:48px;height:48px;flex:none;}
+.section-head h2{font-size:var(--fs-h2);}
+
+/* ---------- philosophy timeline (alternating rows + connecting line, per Figma node 10:550) ---------- */
+.philosophy{padding-block:var(--space-section);}
+
+.timeline{position:relative;display:flex;flex-direction:column;gap:var(--space-12);}
+.timeline-line{position:absolute;inset-block-start:0;inset-block-end:0;inset-inline-start:50%;
+  width:2px;background:var(--color-primary-100);transform:translateX(-1px);z-index:0;}
+.timeline-fill{position:absolute;inset-inline-start:0;inset-block-start:0;width:100%;height:0%;
+  background:var(--color-primary-900);transition:height .2s ease-out;}
+.timeline-dot{position:absolute;inset-inline-start:50%;inset-block-start:0;
+  transform:translate(-50%,-50%);width:10px;height:10px;border-radius:var(--radius-circle);
+  background:var(--color-primary-900);transition:top .2s ease-out;}
+
+.timeline-row{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;
+  gap:var(--space-10);align-items:center;}
+
+.timeline-item{display:flex;flex-direction:column;gap:var(--space-5);}
+.timeline-item-row{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-6);}
+.timeline-num{flex:none;font-size:24px;font-weight:var(--fw-strong);color:var(--color-primary-300);}
+.timeline-icon{width:72px;height:72px;flex:none;}
+/* each item gets its own dot-grid silhouette — same motif texture, different mark */
+.timeline-icon--01{border-radius:50%;}
+.timeline-icon--02{--motif-size:5px;--motif-gap:8px;
+  clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%);}
+.timeline-icon--03{--motif-size:7px;--motif-gap:12px;
+  clip-path:polygon(38% 0%,62% 0%,62% 38%,100% 38%,100% 62%,62% 62%,62% 100%,38% 100%,38% 62%,0% 62%,0% 38%,38% 38%);}
+.timeline-copy h3{font-size:24px;font-weight:var(--fw-strong);line-height:1.35;}
+.timeline-copy p{margin-block-start:var(--space-3);font-size:var(--fs-body-2);color:var(--text-subtle);}
+
+.timeline-media{position:relative;overflow:hidden;}
+.timeline-media .img{aspect-ratio:4/3;}
+.timeline-media::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(0,0,0,.55),rgba(0,0,0,0) 60%);}
+.timeline-caption{position:absolute;inset-inline-start:var(--space-6);inset-block-end:var(--space-6);
+  font-size:var(--fs-h3);font-weight:var(--fw-strong);color:var(--text-default-inverse);z-index:1;}
+/* mobile-only duplicate of the icon, laid over the photo instead of
+   sitting next to the copy text — hidden until the 768px breakpoint */
+.timeline-icon--overlay{display:none;position:absolute;inset-block-start:var(--space-5);
+  inset-inline-end:var(--space-5);z-index:2;color:var(--text-default-inverse);}
+
+@media (max-width:1024px){
+  .timeline{gap:var(--space-9);}
+  .timeline-line{display:none;}
+  .timeline-row{grid-template-columns:1fr;gap:var(--space-5);}
+  .timeline-row .timeline-item{order:1;}
+  .timeline-row .timeline-media{order:2;}
+}
+@media (max-width:768px){
+  .timeline{gap:var(--space-7);}
+  .timeline-item{gap:var(--space-4);}
+  .timeline-icon{width:56px;height:56px;}
+  .timeline-icon--inline{display:none;}
+  .timeline-icon--overlay{display:block;}
+  .timeline-copy h3{font-size:var(--fs-body-1);}
+  .timeline-caption{font-size:var(--fs-body-1);}
+}
+
+/* ---------- agenda grid (4 x 2, 8 items — always 2 rows, no scroll) ---------- */
+/* Fixed 4 columns at every width (never re-flow to 1-2 cols), and cells
+   scale by aspect-ratio instead of a fixed 330px row height, so the grid
+   simply shrinks to fit and both rows stay exposed with no scrollbar. */
+.agenda-grid{display:grid;grid-template-columns:repeat(4,1fr);
+  border-inline-start:var(--border-1);border-block-start:var(--border-1);}
+.agenda-cell{position:relative;overflow:hidden;aspect-ratio:1;
+  border-inline-end:var(--border-1);border-block-end:var(--border-1);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--space-5);
+  text-align:center;color:inherit;background-color:transparent;
+  transition:background-color .35s ease;}
+.agenda-cell:hover,.agenda-cell:focus-visible{background-color:var(--color-primary-900);}
+.agenda-cell .motif{width:80px;height:80px;transition:transform .35s cubic-bezier(.16,.84,.44,1),color .35s ease;}
+.agenda-cell:hover .motif,.agenda-cell:focus-visible .motif{transform:translateY(-10px);color:var(--color-primary-100);}
+.agenda-cell span{font-size:var(--fs-body-2);font-weight:var(--fw-strong);transition:color .35s ease;}
+.agenda-cell:hover span,.agenda-cell:focus-visible span{color:var(--text-default-inverse);}
+@media (max-width:1024px){
+  .agenda-grid{grid-template-columns:repeat(2,1fr);}
+  .agenda-cell{gap:var(--space-4);}
+  .agenda-cell .motif{width:64px;height:64px;}
+  .agenda-cell span{font-size:16px;}
+}
+
+/* each agenda icon gets its own dot-grid silhouette, matched to its topic —
+   same motif texture as the philosophy timeline, distinct mark per item */
+.agenda-icon--leaf{border-radius:0% 50% 50% 50%;transform:rotate(45deg);}
+.agenda-icon--ring{border-radius:50%;
+  -webkit-mask-image:radial-gradient(circle at 50% 50%,transparent 40%,#000 42%,#000 100%);
+  mask-image:radial-gradient(circle at 50% 50%,transparent 40%,#000 42%,#000 100%);}
+.agenda-icon--diamond{clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%);}
+.agenda-icon--chevron{clip-path:polygon(0% 0%,55% 0%,100% 50%,55% 100%,0% 100%,45% 50%);}
+.agenda-icon--hexagon{clip-path:polygon(25% 0%,75% 0%,100% 50%,75% 100%,25% 100%,0% 50%);}
+.agenda-icon--triangle{clip-path:polygon(50% 0%,100% 100%,0% 100%);}
+.agenda-icon--cross{clip-path:polygon(38% 0%,62% 0%,62% 38%,100% 38%,100% 62%,62% 62%,62% 100%,38% 100%,38% 62%,0% 62%,0% 38%,38% 38%);}
+.agenda-icon--shield{clip-path:polygon(50% 0%,100% 15%,100% 55%,50% 100%,0% 55%,0% 15%);}
+
+/* ---------- news ---------- */
+.news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--grid-gutter-lg);}
+.news-card{border:var(--border-1);}
+.news-card .img{aspect-ratio:16/10;}
+.news-card-body{padding:var(--space-5) var(--space-5) var(--space-6);}
+.news-card-top{display:flex;align-items:center;justify-content:space-between;margin-block-end:var(--space-5);}
+.news-card-top .badge{padding:4px 10px;}
+.news-card h3{font-size:var(--fs-body-1);font-weight:var(--fw-strong);line-height:1.4;min-height:2.8em;}
+.news-card time{display:block;margin-block-start:var(--space-4);color:var(--text-subtle);font-size:var(--fs-body-2);}
+@media (max-width:1024px){.news-grid{grid-template-columns:1fr;}}
+
+/* ---------- cta banner ---------- */
+.cta-banner{background:var(--color-primary-900);color:var(--text-default-inverse);margin-block-start:var(--space-section);}
+.cta-banner .frame{display:flex;align-items:center;justify-content:space-between;gap:var(--space-7);padding-block:var(--space-section);}
+.cta-banner h2{font-size:var(--fs-h2);}
+.cta-banner p{margin-block-start:var(--space-4);color:var(--text-subtle-inverse);}
+.cta-mark{width:120px;height:120px;flex:none;border-radius:var(--radius-circle);}
+@media (max-width:768px){.cta-banner .frame{flex-direction:column;text-align:center;}}
+
+/* ---------- footer (legal line only — nav columns removed) ---------- */
+/* deliberately a shade lighter than .cta-banner so the two dark blocks read as separate, not fused */
+.site-footer{background:var(--color-primary-800);color:var(--text-subtle-inverse);
+  border-block-start:1px solid var(--color-primary-600);}
+.site-footer .frame{padding-block:var(--space-7);}
+.footer-bottom{display:flex;align-items:flex-end;justify-content:space-between;gap:var(--space-6);flex-wrap:wrap;}
+.footer-legal p{font-size:14px;}
+@media (max-width:768px){.footer-bottom{flex-direction:column;align-items:flex-start;}}
