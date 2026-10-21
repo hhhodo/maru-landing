@@ -234,8 +234,8 @@ html{scroll-behavior:smooth;}
 
 /* ---------- footer (legal line only — nav columns removed) ---------- */
 /* deliberately a shade lighter than .cta-banner so the two dark blocks read as separate, not fused */
-.site-footer{background:#38393b;color:#b8b9bc;
-  border-block-start:1px solid #4e4f52;}
+.site-footer{background:#0f0f10;color:#a3a4a7;
+  border-block-start:1px solid #2a2b2d;}
 .site-footer .frame{padding-block:var(--space-7);}
 .footer-bottom{display:flex;align-items:flex-end;justify-content:space-between;gap:var(--space-6);flex-wrap:wrap;}
 .footer-legal p{font-size:14px;}
